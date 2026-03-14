@@ -1,0 +1,330 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+height:100vh;
+
+background: radial-gradient(circle at top,
+#0b2a5a,
+#04152e,
+#010a1a);
+
+font-family: 'Segoe UI', sans-serif;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+color:white;
+
+overflow:hidden;
+
+}
+
+/* MENU SUPERIOR */
+
+/* MENU DIREITO */
+
+.top-menu{
+
+position:absolute;
+
+top:20px;
+right:20px;
+
+display:flex;
+gap:10px;
+
+}
+
+/* BOTÃO DE AJUDA (ESQUERDA) */
+
+.help-btn{
+
+position:absolute;
+
+top:20px;
+left:20px;
+
+}
+
+/* BOTÕES DE ÍCONE */
+
+.icon-btn{
+
+width:45px;
+height:45px;
+
+border-radius:50%;
+
+border:none;
+
+background:rgba(255,255,255,0.1);
+
+color:white;
+
+font-size:20px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+backdrop-filter:blur(5px);
+
+transition:0.2s;
+
+}
+
+.icon-btn:hover{
+
+background:rgba(255,255,255,0.2);
+transform:scale(1.1);
+
+}
+
+/* CONTAINER */
+
+.game-container{
+
+text-align:center;
+
+animation: fadeIn 1s ease;
+
+}
+
+/* TITULO */
+
+.titulo h1{
+
+font-size:34px;
+font-weight:700;
+
+}
+
+.titulo p{
+
+opacity:0.8;
+font-size:18px;
+margin-bottom:60px;
+
+}
+
+/* MENU */
+
+.menu{
+
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:20px;
+
+}
+
+/* BOTÃO JOGAR */
+
+.btn-jogar{
+
+width:300px;
+height:70px;
+
+border:none;
+border-radius:16px;
+
+font-size:24px;
+font-weight:bold;
+
+color:white;
+
+background:linear-gradient(180deg,#2ec0ff,#1789c9);
+
+box-shadow:
+0 8px 0 #0f5f8a,
+0 10px 20px rgba(0,0,0,0.5);
+
+transition:.2s;
+
+}
+
+.btn-jogar:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 10px 0 #0f5f8a,
+0 14px 25px rgba(0,0,0,0.6),
+0 0 20px rgba(46,192,255,0.6);
+
+}
+
+.btn-jogar:active{
+
+transform:translateY(4px);
+box-shadow:0 3px 0 #0f5f8a;
+
+}
+
+/* BOTÃO DEMO */
+
+.btn-demo{
+
+width:180px;
+height:45px;
+
+border:none;
+border-radius:12px;
+
+font-size:16px;
+font-weight:600;
+
+color:white;
+
+background:linear-gradient(180deg,#2ec0ff,#1789c9);
+
+box-shadow:
+0 6px 0 #0f5f8a,
+0 8px 16px rgba(0,0,0,0.4);
+
+transition:.2s;
+
+}
+
+.btn-demo:hover{
+
+transform:translateY(-2px);
+
+box-shadow:
+0 8px 0 #0f5f8a,
+0 12px 20px rgba(0,0,0,0.5),
+0 0 15px rgba(46,192,255,0.5);
+
+}
+
+/* ANIMAÇÃO */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/*janela de login ao clicar no icone*/
+.login-modal{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    display:none;
+
+    background:rgba(0,0,0,0.6);
+
+    justify-content:center;
+    align-items:center;
+}
+
+
+.login-modal{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    display:none;
+
+    background:rgba(0,0,0,0.6);
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:1000;
+}
+
+.login-modal.ativo{
+    display:flex;
+}
+
+.login-box{
+
+    background:#031149;
+    padding:30px;
+
+    border-radius:12px;
+
+    width:80%;
+    max-width:420px;
+
+    min-height:320px;
+
+    text-align:center;
+
+    position:relative;
+
+    transform:scale(0.5);
+    opacity:0;
+
+    transition:all 0.3s ease;
+}
+
+.login-modal.ativo .login-box{
+    transform:scale(1);
+    opacity:1;
+}
+
+.form-control:focus{
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+/*ícones dos campos de login personalizados*/
+.icone-email{
+color:#6c757d;
+}
+
+.icone-senha{
+color:#6c757d;
+}
+
+.olho-senha{
+cursor:pointer;
+}
+
+.olho-senha:hover{
+background:#f1f1f1;
+} 
+/*icone de fechar o login*/
+.fechar{
+    position:absolute;
+    right:15px;
+    top:10px;
+    font-size:25px;
+    cursor:pointer;
+}
+/*Link para realizar o cadastro do site*/
+.cadastro-texto{
+    font-size:14px;
+    margin-top:10px;
+}
+
+.cadastro-texto a{
+    color:#2378f9;
+    font-weight:500;
+    text-decoration:underline;
+}
+
+.cadastro-texto a:hover{
+    color:white;
+}
