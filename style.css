@@ -13,11 +13,7 @@ background: radial-gradient(circle at top,
 #04152e,
 #010a1a);
 
-font-family: 'Segoe UI', sans-serif;
-
-display:flex;
-justify-content:center;
-align-items:center;
+font-family:'Segoe UI', sans-serif;
 
 color:white;
 
@@ -87,12 +83,19 @@ transform:scale(1.1);
 }
 
 /* CONTAINER */
-
 .game-container{
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%, -50%);
 
 text-align:center;
 
-animation: fadeIn 1s ease;
+width:100%;
+max-width:900px;
 
 }
 
@@ -236,22 +239,6 @@ transform:translateY(0);
 }
 
 
-.login-modal{
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-
-    display:none;
-
-    background:rgba(0,0,0,0.6);
-
-    justify-content:center;
-    align-items:center;
-
-    z-index:1000;
-}
 
 .login-modal.ativo{
     display:flex;
@@ -327,4 +314,22 @@ background:#f1f1f1;
 
 .cadastro-texto a:hover{
     color:white;
+}
+
+/* Ajuste do dropdown */
+
+.dropdown-toggle::after {
+    display: none; 
+}
+
+
+.top-menu .dropdown {
+    display: flex;
+    align-items: center;
+}
+
+
+.dropdown-menu {
+    margin-top: 10px;
+    border-radius: 10px;
 }

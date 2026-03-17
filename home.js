@@ -43,3 +43,24 @@ toggleSenha.innerHTML = '<i class="bi bi-eye"></i>';
 }
 
 });
+
+
+const abrirCadastro = document.getElementById("abrirCadastro");
+const voltarLogin = document.getElementById("voltarLogin");
+
+const formLogin = document.getElementById("formLogin");
+const formCadastro = document.getElementById("formCadastro");
+
+abrirCadastro.addEventListener("click", function(e){
+e.preventDefault();
+
+formLogin.style.display = "none";
+formCadastro.style.display = "block";
+});
+
+voltarLogin.addEventListener("click", function(e){
+e.preventDefault();
+
+formCadastro.style.display = "none";
+formLogin.style.display = "block";
+});
