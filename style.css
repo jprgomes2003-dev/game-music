@@ -333,3 +333,27 @@ background:#f1f1f1;
     margin-top: 10px;
     border-radius: 10px;
 }
+
+/* força borda vermelha no input */
+.form-control.is-invalid {
+    border: 2px solid #e47d87 !important;
+}
+
+/* mantém o layout do input-group correto */
+.input-group .form-control.is-invalid {
+    z-index: 2;
+}
+
+/* mostra mensagem SEMPRE */
+.input-group .invalid-feedback {
+    display: block;
+}
+
+
+.input-group .form-control.is-invalid {
+    border: 2px solid #dc3545 !important;
+}
+
+.input-group .form-control.is-valid {
+    border: 2px solid #198754 !important;
+}
