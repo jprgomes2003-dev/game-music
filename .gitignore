@@ -1,3 +1,4 @@
 
 banco/backup.sql
 .env
+vendor/
