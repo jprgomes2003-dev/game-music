@@ -2,3 +2,4 @@
 banco/backup.sql
 .env
 vendor/
+web/private/php/envia_email.php

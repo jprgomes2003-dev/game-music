@@ -1,5 +1,5 @@
 <?php
-require "conexao.php";
+require __DIR__ . "/conexao.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -14,13 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    if ($idade < 10 || $idade > 120) {
-        echo "Idade inválida!";
-        exit;
-    }
-
     if ($senha !== $confirmar_senha) {
-        echo "As senhas não coincidem!";
+        echo "Senhas não coincidem!";
         exit;
     }
 
@@ -28,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
 
+        // verifica se email já existe
         $sql = "SELECT id FROM usuarios WHERE email = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$email]);
@@ -37,34 +33,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
 
-        $sql = "INSERT INTO usuarios (nome, email, senha_hash, idade) VALUES (?, ?, ?, ?)";
+        // insere usuário
+        $sql = "INSERT INTO usuarios (nome, email, senha_hash, idade)
+                VALUES (?, ?, ?, ?)";
+
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$nome, $email, $senha_hash, $idade]);
 
-        //  envio de email (mantido)
-        $assunto = "Cadastro realizado com sucesso!";
-
-        $mensagem = "
-        Olá $nome,
-
-        Seu cadastro foi realizado com sucesso!
-
-        Seja bem-vindo(a) ao nosso jogo Quiz Musical 🎵
-        ";
-
-        $headers = "From: no-reply@seudominio.com\r\n";
-        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-        @mail($email, $assunto, $mensagem, $headers);
-
-        //  REDIRECIONAMENTO
-        header("Location: ../index.html?sucesso=1");
-    exit;
+        // redireciona com sucesso
+        header("Location: ../../public/index.html?sucesso=1");
+        exit;
 
     } catch (PDOException $e) {
-
-        error_log("Erro no cadastro: " . $e->getMessage());
-        echo "Erro ao cadastrar! Tente novamente.";
+        echo "Erro ao cadastrar!";
     }
 }
-?>

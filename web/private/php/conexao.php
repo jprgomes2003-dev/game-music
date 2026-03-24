@@ -1,7 +1,7 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php'; // acessa autoload na raiz
+require __DIR__ . '/../../../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..'); // aponta para a raiz
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3));
 $dotenv->load();
 
 $host = $_ENV['DB_HOST'];
@@ -13,9 +13,6 @@ try {
     $pdo = new PDO("pgsql:host=$host;dbname=$db", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
 } catch (PDOException $e) {
     echo "❌ Erro na conexão: " . $e->getMessage();
 }
-
-?>
