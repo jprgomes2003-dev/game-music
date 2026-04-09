@@ -1,7 +1,11 @@
 <?php
-require __DIR__ . "/conexao.php";
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
 
+require __DIR__ . "/conexao.php";
 header('Content-Type: application/json');
+
+session_start();
 
 function resposta($status, $message) {
     echo json_encode([
@@ -35,6 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!password_verify($senha, $usuario['senha_hash'])) {
             resposta("error", "Senha incorreta!");
         }
+
+   
+        $_SESSION['usuario_id'] = $usuario['id'];
+        $_SESSION['nome'] = $usuario['nome'];
 
         resposta("success", "Login realizado com sucesso!");
 

@@ -1,16 +1,10 @@
 <?php
-require __DIR__ . "/../conexao.php";
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+header("Content-Type: application/json");
+
+require __DIR__ . "/conexao.php";
 session_start();
-
-header('Content-Type: application/json');
-
-function resposta($status, $message) {
-    echo json_encode([
-        "status" => $status,
-        "message" => $message
-    ]);
-    exit;
-}
 
 $data = json_decode(file_get_contents("php://input"), true);
 
@@ -18,39 +12,48 @@ $nome = $data['nome'] ?? '';
 $email = $data['email'] ?? '';
 $google_id = $data['google_id'] ?? '';
 
-if (!$email || !$google_id) {
-    resposta("error", "Dados inválidos");
+if (!$email) {
+    echo json_encode(["status" => "error", "message" => "Email inválido"]);
+    exit;
 }
 
 try {
 
-    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
+    $sql = "SELECT id, nome FROM usuarios WHERE email = ?";
+    $stmt = $pdo->prepare($sql);
     $stmt->execute([$email]);
 
-    $usuario = $stmt->fetch();
+    if ($stmt->rowCount() > 0) {
 
-    if ($usuario) {
+        $usuario = $stmt->fetch();
 
-        // LOGIN
-        $_SESSION['usuario_id'] = $usuario['id'];
-        $_SESSION['nome'] = $usuario['nome'];
+    } else {
 
-        resposta("success", "Login realizado com Google!");
+        // 👇 cuidado com campos obrigatórios
+        $sql = "INSERT INTO usuarios (nome, email, senha_hash)
+                VALUES (?, ?, '')";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$nome, $email]);
+
+        $usuario = [
+            "id" => $pdo->lastInsertId(),
+            "nome" => $nome
+        ];
     }
 
-    // CADASTRA
-    $stmt = $pdo->prepare("
-        INSERT INTO usuarios (nome, email, google_id)
-        VALUES (?, ?, ?)
-    ");
+    $_SESSION['usuario_id'] = $usuario['id'];
+    $_SESSION['nome'] = $usuario['nome'];
 
-    $stmt->execute([$nome, $email, $google_id]);
+    echo json_encode([
+        "status" => "success",
+        "message" => "Login com Google OK"
+    ]);
 
-    $_SESSION['usuario_id'] = $pdo->lastInsertId();
-    $_SESSION['nome'] = $nome;
+} catch (Exception $e) {
 
-    resposta("success", "Conta criada com Google!");
-
-} catch (PDOException $e) {
-    resposta("error", "Erro no servidor");
+    echo json_encode([
+        "status" => "error",
+        "message" => $e->getMessage() 
+    ]);
 }
