@@ -1,59 +1,62 @@
 <?php
-ini_set('display_errors', 1); 
-error_reporting(E_ALL);
-header("Content-Type: application/json");
-
-require __DIR__ . "/conexao.php";
 session_start();
+header('Content-Type: application/json');
+$raw = file_get_contents("php://input");
+require __DIR__ . "/conexao.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$nome = $data['nome'] ?? '';
-$email = $data['email'] ?? '';
-$google_id = $data['google_id'] ?? '';
+$google_id = $data['google_id'] ?? null;
+$email = $data['email'] ?? null;
 
-if (!$email) {
-    echo json_encode(["status" => "error", "message" => "Email inválido"]);
+// 🔒 VALIDAÇÃO
+if (!$google_id || !$email) {
+    echo json_encode([
+        "status" => "error",
+        "message" => "Dados inválidos"
+    ]);
     exit;
 }
 
 try {
 
-    $sql = "SELECT id, nome FROM usuarios WHERE email = ?";
+    // 🔍 PROCURA POR GOOGLE_ID OU EMAIL
+    $sql = "SELECT id, nome, google_id FROM usuarios WHERE google_id = ? OR email = ?";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$email]);
+    $stmt->execute([$google_id, $email]);
 
     if ($stmt->rowCount() > 0) {
 
         $usuario = $stmt->fetch();
 
+        // 🔗 VINCULA GOOGLE_ID SE NÃO EXISTIR
+        if (empty($usuario['google_id'])) {
+            $update = $pdo->prepare("UPDATE usuarios SET google_id = ? WHERE id = ?");
+            $update->execute([$google_id, $usuario['id']]);
+        }
+
+        // 🔐 LOGIN
+        $_SESSION['usuario_id'] = $usuario['id'];
+        $_SESSION['nome'] = $usuario['nome'];
+
+        echo json_encode(["status" => "success"]);
+        exit;
+
     } else {
 
-        // 👇 cuidado com campos obrigatórios
-        $sql = "INSERT INTO usuarios (nome, email, senha_hash)
-                VALUES (?, ?, '')";
+        // 👤 NOVO USUÁRIO
+        $_SESSION['google_temp'] = [
+    "google_id" => $google_id,
+    "email" => $email
+];
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$nome, $email]);
-
-        $usuario = [
-            "id" => $pdo->lastInsertId(),
-            "nome" => $nome
-        ];
+echo json_encode(["status" => "novo"]);
+exit;
     }
 
-    $_SESSION['usuario_id'] = $usuario['id'];
-    $_SESSION['nome'] = $usuario['nome'];
-
-    echo json_encode([
-        "status" => "success",
-        "message" => "Login com Google OK"
-    ]);
-
 } catch (Exception $e) {
-
     echo json_encode([
         "status" => "error",
-        "message" => $e->getMessage() 
+        "message" => "Erro interno"
     ]);
 }

@@ -1,13 +1,19 @@
+
 --
--- PostgreSQL database dump
+-- Como consultar idade:
+-- SELECT nome, EXTRACT(YEAR FROM AGE(CURRENT_DATE, data_nascimento)) AS idade FROM public.usuarios;
+--
+
+--
+-- PostgreSQL database dump 
 --
 
 CREATE TABLE public.usuarios (
     id integer NOT NULL,
-    nome character varying(100) NOT NULL,
+    nome character varying(100) NOT NULL, 
     email character varying(100) NOT NULL,
-    senha_hash character varying(255), -- agora pode ser NULL
-    google_id character varying(255),  -- novo campo
+    senha_hash character varying(255),
+    google_id character varying(255),
     data_nascimento DATE,
     data_criacao timestamp without time zone DEFAULT CURRENT_TIMESTAMP
 );
@@ -30,16 +36,22 @@ ALTER TABLE ONLY public.usuarios
 ALTER COLUMN id SET DEFAULT nextval('public.usuarios_id_seq'::regclass);
 
 --
--- Como consultar idade:
--- SELECT nome, EXTRACT(YEAR FROM AGE(CURRENT_DATE, data_nascimento)) AS idade FROM public.usuarios;
+-- DADOS EXEMPLO (CORRIGIDOS)
 --
 
 COPY public.usuarios (id, nome, email, senha_hash, google_id, data_nascimento, data_criacao) FROM stdin;
 1	Jair Bolsonaro	bolsonaro22@gmail.com	$2y$10$3lDBw6frU59DRjqApUD0eOP83fi.wJoOh.S2shbldLq2pZueYyWWm	\N	1955-03-21	2026-03-20 17:14:39.702078
-2	lula	lula@gmail.com	$2y$10$Bt2cm1/NLtb/lAV.XjvFAOg84gM8ycSuvrvaczTq/GOUkwG757/cm	\N	1945-10-27	2026-03-20 19:08:04.294832
+2	Lula	lula@gmail.com	$2y$10$Bt2cm1/NLtb/lAV.XjvFAOg84gM8ycSuvrvaczTq/GOUkwG757/cm	\N	1945-10-27	2026-03-20 19:08:04.294832
 \.
 
 SELECT pg_catalog.setval('public.usuarios_id_seq', 2, true);
+
+--
+-- CONSTRAINTS
+--
+
+ALTER TABLE ONLY public.usuarios
+    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.usuarios
     ADD CONSTRAINT usuarios_email_key UNIQUE (email);
@@ -48,4 +60,10 @@ ALTER TABLE ONLY public.usuarios
     ADD CONSTRAINT usuarios_google_id_key UNIQUE (google_id);
 
 ALTER TABLE ONLY public.usuarios
-    ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT usuarios_nome_key UNIQUE (nome);
+
+--
+-- CONSULTA DE IDADE (mantida)
+--
+
+-- SELECT nome, EXTRACT(YEAR FROM AGE(CURRENT_DATE, data_nascimento)) AS idade FROM public.usuarios;

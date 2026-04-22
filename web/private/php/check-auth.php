@@ -2,13 +2,19 @@
 session_start();
 header('Content-Type: application/json');
 
-if (isset($_SESSION['usuario_id'])) {
-    echo json_encode([
-        "logado" => true,
-        "nome" => $_SESSION['nome']
-    ]);
-} else {
-    echo json_encode([
-        "logado" => false
-    ]);
+$response = [
+    "logado" => false,
+    "precisa_username" => false
+];
+
+if (isset($_SESSION['usuario_id']) && !empty($_SESSION['usuario_id'])) {
+    $response["logado"] = true;
+    $response["nome"] = $_SESSION['nome'];
 }
+
+
+if (isset($_SESSION['google_temp'])) {
+    $response["precisa_username"] = true;
+}
+
+echo json_encode($response);

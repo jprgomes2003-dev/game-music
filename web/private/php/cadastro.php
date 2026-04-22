@@ -34,10 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         resposta("error", "Data de nascimento inválida!");
     }
 
-    $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-
     try {
 
+       
         $sql = "SELECT id FROM usuarios WHERE email = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$email]);
@@ -45,6 +44,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->rowCount() > 0) {
             resposta("error", "Email já cadastrado!");
         }
+
+       
+        $sql = "SELECT id FROM usuarios WHERE nome = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$nome]);
+
+        if ($stmt->rowCount() > 0) {
+            resposta("error", "Nome de usuário já existe!");
+        }
+
+        
+        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO usuarios (nome, email, senha_hash, data_nascimento)
                 VALUES (?, ?, ?, ?)";
