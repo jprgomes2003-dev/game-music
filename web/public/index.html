@@ -64,7 +64,7 @@
             <h2 id="dashboardNome">Olá 👋</h2>
             <p>Pronto para jogar?</p>
         </div>
-
+         <button class="btn-jogar">Jogar</button>
         <div class="dashboard-grid">
             <div class="card-dash">
                 <h4>Partidas</h4>
@@ -81,6 +81,7 @@
                 <p id="totalAcertos">0</p>
             </div>
         </div>
+        
     </div>
 
     <!-- TELA INICIAL -->
@@ -90,7 +91,6 @@
     </div>
 
     <div class="menu">
-        <button class="btn-jogar">Jogar</button>
         <button class="btn-demo">Demo</button>
     </div>
 
@@ -110,14 +110,14 @@
             <label>Email:</label>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                <input type="email" name="email" class="form-control" required>
+                <input type="email" name="email" class="form-control" placeholder="Digite seu email" required>
             </div>
 
             <label>Senha:</label>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
 
-                <input type="password" name="senha" id="campoSenha" class="form-control" required>
+                <input type="password" name="senha" id="campoSenha" class="form-control" placeholder="Digite sua senha" required>
 
                 <span class="input-group-text olho-senha" data-target="campoSenha">
                 <i class="bi bi-eye"></i>
@@ -131,7 +131,7 @@
                 <i class="bi bi-google"></i> Entrar com Google
             </button>
 
-            <p class="text-center">
+            <p class="d-flex justify-content-center align-items-center flex-wrap gap-2 text-center mt-4">
                 Não possui login?
                 <button type="button" id="abrirCadastro" class="btn btn-link p-0">
                     Cadastre-se aqui
@@ -139,55 +139,53 @@
             </p>
         </form>
 
-        <!-- CADASTRO -->
-        <form id="formCadastro" style="display:none;" novalidate>
+                <form id="formCadastro" style="display:none;" novalidate>
 
-            <h2 class="mb-3">Cadastro</h2>
+                <h2 class="mb-3">Cadastro</h2>
 
-            <label>Nome:</label>
-            <input type="text" name="nome" class="form-control mb-2" required>
+                <label>Nome:</label>
+                <input type="text" name="nome" class="form-control mb-2" placeholder="Digite seu nome" required>
 
-            <label>Email:</label>
-            <input type="email" name="email" class="form-control mb-2" required>
+               <label>Email:</label><div class="input-group mb-2"><span class="input-group-text"><i class="bi bi-envelope-fill"></i>
+                </span><input type="email" name="email" class="form-control" placeholder="Digite seu email" required></div>
 
-            <label>Data de Nascimento:</label>
-            <input type="date" id="data_nascimento" name="data_nascimento" class="form-control mb-2" required>
+                <label>Data de Nascimento:</label>
+                <input type="date" id="data_nascimento" name="data_nascimento" class="form-control mb-2" required>
 
-            <!-- SENHA -->
-             <label>Senha:</label>
-            <div class="input-group mb-3">
-                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                <!-- SENHA -->
+                <label>Senha:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
 
-               <input type="password" name="senha" id="senhaCadastro" class="form-control" required>
+                    <input type="password" name="senha" id="senhaCadastro"
+                        class="form-control" placeholder="Digite sua senha" required>
 
-              <span class="input-group-text olho-senha" data-target="senhaCadastro">
-               <i class="bi bi-eye"></i>
-              </span>
-            </div>
+                    <span class="input-group-text olho-senha" data-target="senhaCadastro">
+                        <i class="bi bi-eye"></i>
+                    </span>
+                </div>
 
-            <!-- CONFIRMAR SENHA -->
-             <label>Confirmar Senha:</label>
-            <div class="input-group mb-3">
-                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                <!-- CONFIRMAR SENHA -->
+                <label>Confirmar Senha:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
 
-                <input type="password" name="confirmar_senha" id="confirmarSenha" class="form-control" required>
+                    <input type="password" name="confirmar_senha" id="confirmarSenha"
+                        class="form-control" placeholder="Confirme sua senha" required>
 
-               <span class="input-group-text olho-senha" data-target="confirmarSenha">
-               <i class="bi bi-eye"></i>
-               </span>
-            </div>
+                    <span class="input-group-text olho-senha" data-target="confirmarSenha">
+                        <i class="bi bi-eye"></i>
+                    </span>
+                </div>
 
-            <!-- BOTÃO CADASTRO (ESTAVA FALTANDO) -->
-            <button type="submit" class="btn btn-primary w-100 mb-3">Cadastrar</button>
-
-            <p class="text-center">
-                Já possui conta?
-                <button type="button" id="voltarLogin" class="btn btn-link p-0">
-                    Voltar para login
-                </button>
-            </p>
-
-        </form>
+                <button type="submit" class="btn btn-primary w-100 mb-3">Cadastrar</button>
+                <p class="d-flex justify-content-center align-items-center flex-wrap gap-2 text-center">
+                    Já possui conta?
+                    <button type="button" id="voltarLogin" class="btn btn-link p-0">
+                        Voltar para login
+                    </button>
+                </p>
+            </form>
 
     </div>
 </div>
@@ -226,7 +224,7 @@
 
 <!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="javascript/home.js"></script>
+<script type="module" src="../private/javascript/home.js"></script>
 
 </body>
 </html>
