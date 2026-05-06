@@ -1,322 +1,337 @@
 /* ================= RESET ================= */
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
 
 /* ================= BASE ================= */
 body {
-    height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
-    color: white;
-    overflow: hidden;
+height: 100vh;
+font-family: 'Segoe UI', sans-serif;
+color: white;
 
-    background: radial-gradient(circle at top, #134898, #04152e, #010a1a);
+
+/* 🔥 MANTIDO SEU FUNDO ORIGINAL */
+background: radial-gradient(circle at top, #134898, #04152e, #010a1a);
+
+overflow-x: hidden; /* 🔥 corrigido */
+
 }
 
 /* ================= LAYOUT ================= */
 .game-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    max-width: 900px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+text-align: center;
+width: 100%;
+max-width: 900px;
 }
 
 /* ================= MENU SUPERIOR ================= */
 .top-menu {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    gap: 10px;
+position: absolute;
+top: 20px;
+right: 20px;
+display: flex;
+gap: 10px;
+z-index: 1;
 }
 
 .help-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+position: absolute;
+top: 20px;
+left: 20px;
+z-index: 1;
 }
 
 /* ================= BOTÕES ================= */
 .icon-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    font-size: 20px;
+width: 45px;
+height: 45px;
+border-radius: 50%;
+border: none;
+background: rgba(255,255,255,0.1);
+color: white;
+font-size: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+backdrop-filter: blur(5px);
+transition: 0.2s;
 
-    backdrop-filter: blur(5px);
-    transition: 0.2s;
+
 }
 
 .icon-btn:hover {
-    background: rgba(255,255,255,0.2);
-    transform: scale(1.1);
+background: rgba(255,255,255,0.2);
+transform: scale(1.1);
 }
 
 /* ================= TÍTULO ================= */
 .titulo h1 {
-    font-size: 34px;
-    font-weight: 700;
+font-size: 34px;
+font-weight: 700;
 }
 
 .titulo p {
-    opacity: 0.8;
-    font-size: 18px;
-    margin-bottom: 60px;
+opacity: 0.8;
+font-size: 18px;
+margin-bottom: 60px;
 }
 
 /* ================= MENU ================= */
 .menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px;
 }
 
 /* ================= BOTÃO JOGAR ================= */
 .btn-jogar {
-    width: 300px;
-    height: 70px;
-    border: none;
-    border-radius: 16px;
+width: 300px;
+height: 70px;
+border: none;
+border-radius: 16px;
+font-size: 24px;
+font-weight: bold;
+color: white;
 
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
+background: linear-gradient(180deg,#2ec0ff,#1789c9);
 
-    background: linear-gradient(180deg,#2ec0ff,#1789c9);
+box-shadow:
+    0 8px 0 #0f5f8a,
+    0 10px 20px rgba(0,0,0,0.5);
 
-    box-shadow:
-        0 8px 0 #0f5f8a,
-        0 10px 20px rgba(0,0,0,0.5);
-
-    transition: .2s;
+transition: .2s;
 }
 
 .btn-jogar:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 10px 0 #0f5f8a,
-        0 14px 25px rgba(0,0,0,0.6),
-        0 0 20px rgba(46,192,255,0.6);
+transform: translateY(-2px);
+box-shadow:
+0 10px 0 #0f5f8a,
+0 14px 25px rgba(0,0,0,0.6),
+0 0 20px rgba(46,192,255,0.6);
 }
 
 .btn-jogar:active {
-    transform: translateY(4px);
-    box-shadow: 0 3px 0 #0f5f8a;
+transform: translateY(4px);
+box-shadow: 0 3px 0 #0f5f8a;
 }
 
 /* ================= BOTÃO DEMO ================= */
 .btn-demo {
-    width: 180px;
-    height: 45px;
-    border: none;
-    border-radius: 12px;
+width: 180px;
+height: 45px;
+border: none;
+border-radius: 12px;
+font-size: 16px;
+font-weight: 600;
+color: white;
 
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
+background: linear-gradient(180deg,#2ec0ff,#1789c9);
 
-    background: linear-gradient(180deg,#2ec0ff,#1789c9);
+box-shadow:
+    0 6px 0 #0f5f8a,
+    0 8px 16px rgba(0,0,0,0.4);
 
-    box-shadow:
-        0 6px 0 #0f5f8a,
-        0 8px 16px rgba(0,0,0,0.4);
+transition: .2s;
 
-    transition: .2s;
 }
 
 .btn-demo:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 8px 0 #0f5f8a,
-        0 12px 20px rgba(0,0,0,0.5),
-        0 0 15px rgba(46,192,255,0.5);
+transform: translateY(-2px);
+box-shadow:
+0 8px 0 #0f5f8a,
+0 12px 20px rgba(0,0,0,0.5),
+0 0 15px rgba(46,192,255,0.5);
 }
 
-/* ================= MODAL LOGIN ================= */
+/* ================= MODAIS (LOGIN + HELP) ================= */
 .login-modal {
-    position: fixed;
-    inset: 0;
-    display: none;
+position: fixed;
+inset: 0;
+display: none;
+background: rgba(0, 0, 0, 0.85);
+backdrop-filter: blur(6px); /* 🔥 resolve mistura */
 
-    background: rgba(0,0,0,0.6);
+justify-content: center;
+align-items: center;
 
-    justify-content: center;
-    align-items: center;
+z-index: 9999;
+
 }
 
 .login-modal.ativo {
-    display: flex;
+display: flex;
 }
 
 .login-box {
-    background: #031149;
-    padding: 30px;
-    border-radius: 12px;
+background: #031149;
+padding: 30px;
+border-radius: 12px;
+width: 80%;
+max-width: 420px;
 
-    width: 80%;
-    max-width: 420px;
+text-align: center;
+position: relative;
 
-    text-align: center;
-    position: relative;
+transform: scale(0.7);
+opacity: 0;
 
-    transform: scale(0.5);
-    opacity: 0;
+transition: all 0.3s ease;
 
-    transition: all 0.3s ease;
 }
 
 .login-modal.ativo .login-box {
-    transform: scale(1);
-    opacity: 1;
+transform: scale(1);
+opacity: 1;
 }
 
 /* ================= FORMULÁRIOS ================= */
 #formLogin,
 #formCadastro {
-    text-align: left;
+text-align: left;
 }
 
 #formLogin h2,
 #formCadastro h2,
 #formLogin p,
 #formCadastro p {
-    text-align: center;
+text-align: center;
 }
 
 #formLogin label,
 #formCadastro label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
+display: block;
+margin-bottom: 5px;
+font-weight: 500;
 }
 
 /* ================= INPUTS ================= */
 .form-control:focus {
-    box-shadow: none;
-    border-color: #ced4da;
+box-shadow: none;
+border-color: #ced4da;
 }
 
 .olho-senha {
-    cursor: pointer;
+cursor: pointer;
 }
 
 .olho-senha:hover {
-    background: #f1f1f1;
+background: #f1f1f1;
 }
 
-/* ================= FECHAR MODAL ================= */
+/* ================= FECHAR ================= */
 .fechar {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 25px;
-    cursor: pointer;
-}
-
-/* ================= VALIDAÇÃO ================= */
-.form-control.is-invalid {
-    border: 2px solid #dc3545 !important;
-}
-
-.form-control.is-valid {
-    border: 2px solid #198754 !important;
-}
-
-.input-group .invalid-feedback {
-    display: block;
+position: absolute;
+right: 15px;
+top: 10px;
+font-size: 25px;
+cursor: pointer;
 }
 
 /* ================= DASHBOARD ================= */
 .spotify-dashboard {
-    padding: 30px;
+padding: 30px;
 }
 
 .dashboard-header h2 {
-    font-size: 28px;
-    font-weight: bold;
+font-size: 28px;
+font-weight: bold;
 }
 
 .dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-top: 20px;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 15px;
+margin-top: 20px;
 }
 
 .card-dash {
-    background: #181818;
-    padding: 20px;
-    border-radius: 12px;
-    transition: 0.3s;
+background: #181818;
+padding: 20px;
+border-radius: 12px;
+transition: 0.3s;
 }
 
 .card-dash:hover {
-    background: #282828;
-    transform: scale(1.03);
+background: #282828;
+transform: scale(1.03);
 }
 
 /* ================= PERFIL ================= */
 .modal-perfil {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
+display: none;
+position: fixed;
+inset: 0;
+
+background: rgba(0,0,0,0.85);
+backdrop-filter: blur(6px);
+
+justify-content: center;
+align-items: center;
+
+z-index: 9999;
+
+
 }
 
 .perfil-box {
-    background: #121212;
-    padding: 25px;
-    border-radius: 12px;
-    width: 300px;
+background: #121212;
+padding: 25px;
+border-radius: 12px;
+width: 300px;
 }
 
 /* ================= POPUP ================= */
 .popup-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.85);
+backdrop-filter: blur(6px);
+display: none;
+justify-content: center;
+align-items: center;
+
+z-index: 9999;
+
 }
 
 .popup-box {
-    background: #0b1d3a;
-    padding: 30px;
-    border-radius: 12px;
-    text-align: center;
-    width: 300px;
+background: #0b1d3a;
+padding: 30px;
+border-radius: 12px;
+text-align: center;
+width: 300px;
 }
 
 .popup-box input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 6px;
-    border: none;
+width: 100%;
+padding: 10px;
+margin: 10px 0;
+border-radius: 6px;
+border: none;
 }
 
 .popup-box button {
-    width: 100%;
-    padding: 10px;
-    background: #0c1b11;
-    border: none;
-    border-radius: 6px;
-    color: white;
+width: 100%;
+padding: 10px;
+background: #0c1b11;
+border: none;
+border-radius: 6px;
+color: white;
+}
+
+.carousel-inner {
+    padding-bottom: 20px; /* cria espaço abaixo do conteúdo */
+}
+
+.carousel-indicators {
+    bottom: -40px; /* desce os steps */
 }

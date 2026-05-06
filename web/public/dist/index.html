@@ -10,7 +10,7 @@
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Icons -->
+<!-- Bootstrap Icons (ESSENCIAL PARA OS ÍCONES) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 <!-- Tailwind -->
@@ -31,11 +31,77 @@
     </div>
 </div>
 
-<!-- AJUDA -->
+<!-- BOTÃO AJUDA -->
 <div class="help-btn">
-    <button class="icon-btn">
+    <button class="icon-btn" id="abrirHelp">
         <i class="bi bi-question-lg"></i>
     </button>
+</div>
+
+<!-- MODAL AJUDA -->
+<div id="helpModal" class="login-modal">
+  <div class="login-box">
+
+    <span class="fechar" id="fecharHelp">&times;</span>
+
+    <h2 class="mb-3">O que é o Quiz Musical?</h2>
+
+    <!-- CARROSSEL -->
+    <div id="carouselHelp" class="carousel slide" data-bs-ride="false">
+
+      <!-- INDICADORES DE STEPS -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselHelp" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#carouselHelp" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#carouselHelp" data-bs-slide-to="2"></button>
+      </div>
+
+      <div class="carousel-inner">
+
+        <!-- STEP 1 -->
+        <div class="carousel-item active text-center">
+
+          <p class="mb-3">
+            Este é um jogo de plataforma web onde você será desafiado
+            a responder perguntas sobre música e compasso rítmico.
+          </p>
+
+          <!-- ÍCONE -->
+          <div class="d-flex justify-content-center align-items-center mt-3">
+            <i class="bi bi-music-note-beamed fs-1"></i>
+          </div>
+
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="carousel-item text-center">
+              <p class="mb-3">
+            Para começar a jogar, você poderá observar as partituras, ouvir os áudios e analisar o compasso rítmico.
+          </p>
+         <!-- ÍCONE -->
+          <div class="d-flex justify-content-center align-items-center mt-3">
+            <i class="bi bi-play-circle fs-1"></i>
+          </div>
+
+
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="carousel-item text-center">
+
+
+          <p>
+            Durante as partidas, escolha a resposta correta e acumule pontos.
+            Quanto mais acertos, melhor sua pontuação!
+          </p>
+           <i class="bi bi-trophy-fill fs-1"></i>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 </div>
 
 <!-- TOPO -->
@@ -48,9 +114,8 @@
         </button>
 
         <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">1</a></li>
-            <li><a class="dropdown-item" href="#">2</a></li>
-            <li><a class="dropdown-item" href="#">3</a></li>
+            <li><a class="dropdown-item" href="#">Config 1</a></li>
+            <li><a class="dropdown-item" href="#">Config 2</a></li>
         </ul>
     </div>
 </div>
@@ -64,7 +129,9 @@
             <h2 id="dashboardNome">Olá 👋</h2>
             <p>Pronto para jogar?</p>
         </div>
-         <button class="btn-jogar">Jogar</button>
+
+        <button class="btn-jogar">Jogar</button>
+
         <div class="dashboard-grid">
             <div class="card-dash">
                 <h4>Partidas</h4>
@@ -72,16 +139,14 @@
             </div>
 
             <div class="card-dash">
-                 <h4>Ver Historico</h4>
-                
+                <h4>Histórico</h4>
             </div>
 
-             <div class="card-dash">
+            <div class="card-dash">
                 <h4>Pontuação</h4>
                 <p id="totalAcertos">0</p>
             </div>
         </div>
-        
     </div>
 
     <!-- TELA INICIAL -->
@@ -100,33 +165,36 @@
 <div id="loginModal" class="login-modal">
     <div class="login-box">
 
-        <!-- BOTÃO FECHAR (X) -->
         <span class="fechar" id="fecharModal">&times;</span>
 
         <!-- LOGIN -->
         <form id="formLogin">
             <h2 class="mb-3">Login</h2>
 
-            <label>Email:</label>
+            <label class="w-100 text-start">Email:</label>
             <div class="input-group mb-3">
-                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                <span class="input-group-text">
+                    <i class="bi bi-envelope-fill"></i>
+                </span>
                 <input type="email" name="email" class="form-control" placeholder="Digite seu email" required>
             </div>
 
-            <label>Senha:</label>
+            <label class="w-100 text-start">Senha:</label>
             <div class="input-group mb-3">
-                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                <span class="input-group-text">
+                    <i class="bi bi-lock-fill"></i>
+                </span>
 
                 <input type="password" name="senha" id="campoSenha" class="form-control" placeholder="Digite sua senha" required>
 
                 <span class="input-group-text olho-senha" data-target="campoSenha">
-                <i class="bi bi-eye"></i>
+                    <i class="bi bi-eye"></i>
                 </span>
             </div>
 
-            <!-- BOTÕES FORA DO INPUT-GROUP -->
             <button type="submit" class="btn btn-primary w-100 mb-3">Entrar</button>
 
+            <!-- GOOGLE (VISUAL ORIGINAL MANTIDO) -->
             <button type="button" id="google-login" class="btn btn-danger w-100 mt-2">
                 <i class="bi bi-google"></i> Entrar com Google
             </button>
@@ -139,59 +207,67 @@
             </p>
         </form>
 
-                <form id="formCadastro" style="display:none;" novalidate>
+        <!-- CADASTRO -->
+        <form id="formCadastro" style="display:none;" novalidate>
 
-                <h2 class="mb-3">Cadastro</h2>
+            <h2 class="mb-3">Cadastro</h2>
 
-                <label>Nome:</label>
-                <input type="text" name="nome" class="form-control mb-2" placeholder="Digite seu nome" required>
+            <label class="w-100 text-start">Nome:</label>
+            <input type="text" name="nome" class="form-control mb-2" placeholder="Digite seu nome" required>
 
-               <label>Email:</label><div class="input-group mb-2"><span class="input-group-text"><i class="bi bi-envelope-fill"></i>
-                </span><input type="email" name="email" class="form-control" placeholder="Digite seu email" required></div>
+            <label class="w-100 text-start">Email:</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    <i class="bi bi-envelope-fill"></i>
+                </span>
+                <input type="email" name="email" class="form-control" placeholder="Digite seu email" required>
+            </div>
 
-                <label>Data de Nascimento:</label>
-                <input type="date" id="data_nascimento" name="data_nascimento" class="form-control mb-2" required>
+            <label class="w-100 text-start">Data de Nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" class="form-control mb-2" required>
 
-                <!-- SENHA -->
-                <label>Senha:</label>
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <label class="w-100 text-start">Senha:</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    <i class="bi bi-lock-fill"></i>
+                </span>
 
-                    <input type="password" name="senha" id="senhaCadastro"
-                        class="form-control" placeholder="Digite sua senha" required>
+                <input type="password" name="senha" id="senhaCadastro" class="form-control" placeholder="Digite sua senha" required>
 
-                    <span class="input-group-text olho-senha" data-target="senhaCadastro">
-                        <i class="bi bi-eye"></i>
-                    </span>
-                </div>
+                <span class="input-group-text olho-senha" data-target="senhaCadastro">
+                    <i class="bi bi-eye"></i>
+                </span>
+            </div>
 
-                <!-- CONFIRMAR SENHA -->
-                <label>Confirmar Senha:</label>
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <label class="w-100 text-start">Confirmar Senha:</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    <i class="bi bi-lock-fill"></i>
+                </span>
 
-                    <input type="password" name="confirmar_senha" id="confirmarSenha"
-                        class="form-control" placeholder="Confirme sua senha" required>
+                <input type="password" name="confirmar_senha" id="confirmarSenha" class="form-control" placeholder="Confirme sua senha" required>
 
-                    <span class="input-group-text olho-senha" data-target="confirmarSenha">
-                        <i class="bi bi-eye"></i>
-                    </span>
-                </div>
+                <span class="input-group-text olho-senha" data-target="confirmarSenha">
+                    <i class="bi bi-eye"></i>
+                </span>
+            </div>
 
-                <button type="submit" class="btn btn-primary w-100 mb-3">Cadastrar</button>
-                <p class="d-flex justify-content-center align-items-center flex-wrap gap-2 text-center">
-                    Já possui conta?
-                    <button type="button" id="voltarLogin" class="btn btn-link p-0">
-                        Voltar para login
-                    </button>
-                </p>
-            </form>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Cadastrar</button>
+
+            <p class="d-flex justify-content-center align-items-center flex-wrap gap-2 text-center mt-3">
+                Já possui conta?
+                <button type="button" id="voltarLogin" class="btn btn-link p-0">
+                    Voltar para login
+                </button>
+            </p>
+
+        </form>
 
     </div>
 </div>
 
 <!-- MODAL PERFIL -->
-<div id="modalPerfil" class="modal-perfil" style="display:none;">
+<div id="modalPerfil" class="modal-perfil">
     <div class="perfil-box">
 
         <h3>Seu Perfil</h3>
@@ -203,12 +279,7 @@
 
         <hr>
 
-        <!-- BLOCO SENHA NORMAL -->
-        <div id="blocoSenhaNormal">
-            <input type="password" id="senhaAtual" placeholder="Senha atual" class="form-control mb-2">
-        </div>
-
-        <!-- NOVA SENHA (AMBOS USAM) -->
+        <input type="password" id="senhaAtual" placeholder="Senha atual" class="form-control mb-2">
         <input type="password" id="novaSenha" placeholder="Nova senha" class="form-control mb-2">
 
         <button id="salvarPerfil" class="btn btn-success w-100 mb-2">
