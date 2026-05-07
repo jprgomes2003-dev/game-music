@@ -106,7 +106,13 @@
 
 <!-- TOPO -->
 <div class="top-menu d-flex align-items-center justify-content-end gap-2">
-    <div id="area-usuario"></div>
+    <div id="area-usuario">
+
+    <button id="btnLogin" class="icon-btn">
+        <i class="bi bi-person-fill"></i>
+    </button>
+
+</div>
 
     <div class="dropdown">
         <button class="icon-btn dropdown-toggle" data-bs-toggle="dropdown">
@@ -122,6 +128,7 @@
 
 <!-- CONTEÚDO -->
 <div class="game-container">
+
 
     <!-- DASHBOARD -->
     <div id="dashboard" style="display:none;" class="spotify-dashboard">
@@ -147,7 +154,42 @@
                 <p id="totalAcertos">0</p>
             </div>
         </div>
+   <!-- DASHBOARD -->
+<div id="dashboard" style="display:none;" class="spotify-dashboard">
+
+    <div class="dashboard-header">
+        <h2 id="dashboardNome">Olá 👋</h2>
+        <p>Pronto para jogar?</p>
     </div>
+
+    <!-- BOTÃO -->
+    <div class="dashboard-btn-area">
+
+        <button class="btn-jogar">
+            Jogar
+        </button>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="card-dash">
+            <h4>Partidas</h4>
+            <p id="totalJogos">0</p>
+        </div>
+
+        <div class="card-dash">
+            <h4>Histórico</h4>
+        </div>
+
+        <div class="card-dash">
+            <h4>Pontuação</h4>
+            <p id="totalAcertos">0</p>
+        </div>
+
+    </div>
+
+</div>
 
     <!-- TELA INICIAL -->
     <div class="titulo">
