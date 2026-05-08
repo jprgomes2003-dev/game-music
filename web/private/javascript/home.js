@@ -34,7 +34,7 @@ function mostrarToast(msg, cor = "#28a745") {
         color: "#fff",
         padding: "12px 18px",
         borderRadius: "8px",
-        zIndex: "9999"
+        zIndex: "99999"
     });
 
     document.body.appendChild(t);
@@ -42,9 +42,11 @@ function mostrarToast(msg, cor = "#28a745") {
 }
 
 // ================= SENHA =================
-function toggleSenha(id, elemento) {
+function toggleSenha(id, el) {
     const input = document.getElementById(id);
-    const icon = elemento.querySelector("i");
+    const icon = el.querySelector("i");
+
+    if (!input) return;
 
     if (input.type === "password") {
         input.type = "text";
@@ -57,17 +59,19 @@ function toggleSenha(id, elemento) {
 
 // ================= PERFIL =================
 function abrirPerfil() {
-    document.getElementById("modalPerfil").style.display = "flex";
+    const modal = document.getElementById("modalPerfil");
+    if (modal) modal.style.display = "flex";
 }
 
 function fecharPerfil() {
-    document.getElementById("modalPerfil").style.display = "none";
+    const modal = document.getElementById("modalPerfil");
+    if (modal) modal.style.display = "none";
 }
 
 window.abrirPerfil = abrirPerfil;
 window.fecharPerfil = fecharPerfil;
 
-// ================= APP =================
+// ================= INIT =================
 document.addEventListener("DOMContentLoaded", () => {
 
     const modal = document.getElementById("loginModal");
@@ -76,22 +80,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const googleBtn = document.getElementById("google-login");
     const areaUsuario = document.getElementById("area-usuario");
 
-    const modalPerfil = document.getElementById("modalPerfil");
-    const perfilNome = document.getElementById("perfilNome");
     const popup = document.getElementById("popupUsername");
+    const helpModal = document.getElementById("helpModal");
 
     const btnAbrirCadastro = document.getElementById("abrirCadastro");
     const btnVoltarLogin = document.getElementById("voltarLogin");
     const fecharModal = document.getElementById("fecharModal");
 
-    // HELP MODAL
-    const helpBtn = document.querySelector(".help-btn button");
-    const helpModal = document.getElementById("helpModal");
+    const helpBtn = document.getElementById("abrirHelp");
     const fecharHelp = document.getElementById("fecharHelp");
 
-    popup.style.display = "none";
+    const btnJogar = document.querySelector(".btn-jogar");
+    const dashboard = document.getElementById("dashboard");
+    const telaDificuldade = document.getElementById("telaDificuldade");
 
-    // ================= TROCA LOGIN / CADASTRO =================
+    // esconder popup inicial
+    if (popup) popup.style.display = "none";
+
+    // ================= TROCA LOGIN/CADASTRO =================
     btnAbrirCadastro?.addEventListener("click", () => {
         formLogin.style.display = "none";
         formCadastro.style.display = "block";
@@ -103,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     fecharModal?.addEventListener("click", () => {
-        modal.classList.remove("ativo");
+        modal?.classList.remove("ativo");
     });
 
     // ================= OLHO SENHA =================
@@ -112,6 +118,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const id = el.getAttribute("data-target");
             toggleSenha(id, el);
         });
+    });
+
+    // ================= BOTÃO JOGAR =================
+    btnJogar?.addEventListener("click", () => {
+
+        if (dashboard) dashboard.style.display = "none";
+
+        if (telaDificuldade) {
+            telaDificuldade.style.display = "flex";
+        } else {
+            console.error("Tela de dificuldade não encontrada no HTML");
+        }
+
     });
 
     // ================= LOGIN =================
@@ -132,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 mostrarToast(data.message, "#dc3545");
             }
+
         } catch {
             mostrarToast("Erro no servidor", "#dc3545");
         }
@@ -155,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 mostrarToast(data.message, "#dc3545");
             }
+
         } catch {
             mostrarToast("Erro no servidor", "#dc3545");
         }
@@ -168,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const res = await fetch("../private/php/google-login.php", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     google_id: user.uid,
                     email: user.email
@@ -178,10 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await res.json();
 
             if (data.status === "success") {
-                mostrarToast("Google login OK");
+                mostrarToast("Login Google OK");
                 location.reload();
             } else if (data.status === "novo") {
-                popup.style.display = "flex";
+                if (popup) popup.style.display = "flex";
             } else {
                 mostrarToast(data.message, "#dc3545");
             }
@@ -191,19 +212,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ================= USERNAME GOOGLE =================
-    async function salvarUsername() {
-        const nome = document.getElementById("inputUsername").value.trim();
+    // ================= SALVAR USERNAME =================
+    window.salvarUsername = async function () {
+        const nome = document.getElementById("inputUsername")?.value.trim();
 
-        if (!nome) {
-            mostrarToast("Digite um nome", "#dc3545");
-            return;
-        }
+        if (!nome) return mostrarToast("Digite um nome", "#dc3545");
 
         try {
             const res = await fetch("../private/php/criar_usuario_google.php", {
                 method: "POST",
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ nome })
             });
 
@@ -215,120 +233,113 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 mostrarToast(data.message, "#dc3545");
             }
+
         } catch {
             mostrarToast("Erro ao criar usuário", "#dc3545");
         }
-    }
-
-    window.salvarUsername = salvarUsername;
-
-    // ================= PERFIL =================
-    document.getElementById("salvarPerfil")?.addEventListener("click", async () => {
-
-        try {
-            const res = await fetch("../private/php/atualizar_usuario.php", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    nome: perfilNome.value,
-                    senha_atual: document.getElementById("senhaAtual").value,
-                    nova_senha: document.getElementById("novaSenha").value
-                })
-            });
-
-            const data = await res.json();
-
-            if (data.status === "success") {
-                mostrarToast("Atualizado!");
-                location.reload();
-            } else {
-                mostrarToast(data.message, "#dc3545");
-            }
-
-        } catch {
-            mostrarToast("Erro ao atualizar", "#dc3545");
-        }
-    });
+    };
 
     // ================= CHECK AUTH =================
     fetch("../private/php/check-auth.php")
-    .then(res => res.json())
-    .then(data => {
+        .then(res => res.json())
+        .then(data => {
 
-        if (data.logado) {
+            if (data.logado) {
 
-            document.getElementById("dashboard").style.display = "block";
-            document.querySelector(".titulo").style.display = "none";
-            document.querySelector(".menu").style.display = "none";
+                document.getElementById("dashboard").style.display = "flex";
+                document.querySelector(".titulo").style.display = "none";
+                document.querySelector(".menu").style.display = "none";
 
-            document.getElementById("dashboardNome").innerText = "Olá, " + data.nome;
+                const nomeEl = document.getElementById("dashboardNome");
+                if (nomeEl) nomeEl.innerText = "Olá, " + data.nome;
 
-            areaUsuario.innerHTML = `
-                <button class="icon-btn dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="icon-user.png" width="32" style="border-radius:50%">
-                </button>
+                areaUsuario.innerHTML = `
+                <div class="dropdown">
 
-                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-                    <li class="px-3 py-2 text-white">${data.nome}</li>
-                    <li><hr></li>
-                    <li><button class="dropdown-item" id="btnPerfil">Perfil</button></li>
-                    <li><button class="dropdown-item text-danger" id="btnLogout">Sair</button></li>
-                </ul>
-            `;
+                    <button class="icon-btn dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i>
+                    </button>
 
-        } else {
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
 
-            if (data.precisa_username) {
-                popup.style.display = "flex";
+                        <li class="px-3 py-2 text-white">
+                            <i class="bi bi-person-fill me-2"></i>
+                            ${data.nome}
+                        </li>
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <li>
+                            <button class="dropdown-item" id="btnPerfil">
+                                <i class="bi bi-person-gear me-2"></i>
+                                Perfil
+                            </button>
+                        </li>
+
+                        <li>
+                            <button class="dropdown-item text-danger" id="btnLogout">
+                                <i class="bi bi-box-arrow-right me-2"></i>
+                                Sair
+                            </button>
+                        </li>
+
+                    </ul>
+
+                </div>
+                `;
+
+            } else {
+
+                areaUsuario.innerHTML = `
+                    <button id="btnLogin" class="icon-btn">
+                        <i class="bi bi-person-fill"></i>
+                    </button>
+                `;
+
+                document.getElementById("btnLogin")?.addEventListener("click", () => {
+                    modal?.classList.add("ativo");
+                });
             }
-
-            areaUsuario.innerHTML = `
-                <button id="btnLogin" class="icon-btn">
-                    <i class="bi bi-person-fill"></i>
-                </button>
-            `;
-
-            document.getElementById("btnLogin").onclick = () => {
-                modal.classList.add("ativo");
-            };
-        }
-    });
+        });
 
     // ================= EVENTOS DINÂMICOS =================
     document.addEventListener("click", async (e) => {
 
         if (e.target.closest("#btnLogout")) {
             fetch("../private/php/logout.php")
-            .then(() => location.reload());
+                .then(() => location.reload());
         }
 
         if (e.target.id === "btnPerfil") {
+
             const res = await fetch("../private/php/get_usuario.php");
             const user = await res.json();
 
-            perfilNome.value = user.nome;
+            const nome = document.getElementById("perfilNome");
+            const email = document.getElementById("perfilEmail");
 
-            if (user.google === true) {
-                document.getElementById("senhaAtual").style.display = "none";
-            }
+            if (nome) nome.value = user.nome;
+            if (email) email.innerText = user.email || "";
 
             abrirPerfil();
         }
     });
 
-    // ================= HELP MODAL =================
+    // ================= HELP =================
     helpBtn?.addEventListener("click", () => {
-        helpModal.classList.add("ativo");
+        helpModal?.classList.add("ativo");
     });
 
     fecharHelp?.addEventListener("click", () => {
-        helpModal.classList.remove("ativo");
-    });
-
-    helpModal?.addEventListener("click", (e) => {
-        if (e.target === helpModal) {
-            helpModal.classList.remove("ativo");
-        }
+        helpModal?.classList.remove("ativo");
     });
 
 });
+
+
+// ================= FUNÇÃO GLOBAL =================
+window.iniciarJogo = function (nivel) {
+    alert("Iniciando jogo nível: " + nivel);
+
+    // aqui você depois liga com sua lógica real do jogo
+};
