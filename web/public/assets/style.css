@@ -241,6 +241,10 @@ cursor: pointer;
 padding: 30px;
 }
 
+.dashboard-header {
+margin-bottom: 80px;
+}
+
 .dashboard-header h2 {
 font-size: 28px;
 font-weight: bold;
